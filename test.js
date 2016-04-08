@@ -17,9 +17,13 @@ lineReader.on('line', function (data) {
     }
   }
 });
+
 lineReader.on('close', function (line) {
+  var output = '';
   for(var j in counts)
   {
-    console.log(j+','+counts[j]);
+    output+="("+j+","+counts[j]+"),"
   }
+  //gets ride of trailing comma
+  console.log(output.substring(0,output.length-1));
 });
