@@ -1,13 +1,28 @@
+/*
+  In order to call the function from the CL
+  > node test.js example.txt
+  example.txt is the file containing the data
+
+*/
 var fileName = process.argv[2];
 var counts = {};
 
+/*
+  what will be handling the actual input. Is lineReader
+  so only has one line in memory at
+  any one time
+*/
 var lineReader = require('readline').createInterface({
   input: require('fs').createReadStream(fileName)
 });
 
+//reads through every line of the file while it has lines to read
 lineReader.on('line', function (data) {
+  //parse the line into array
   data = data.split(',');
+  //checks to make sure it at least has two entries, otherwise ignores
   if(data[0] && data[1]){
+    //I use the age as a key in a json object
     if(counts[data[1]])
     {
       counts[data[1]]++;
@@ -18,10 +33,13 @@ lineReader.on('line', function (data) {
   }
 });
 
+//fires once all lines have been read
 lineReader.on('close', function (line) {
+  //what will be output into the CL
   var output = '';
   for(var j in counts)
   {
+    //forms the actual tuple
     output+="("+j+","+counts[j]+"),"
   }
   //gets ride of trailing comma
