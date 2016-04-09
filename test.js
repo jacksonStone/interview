@@ -6,6 +6,7 @@
 */
 var fileName = process.argv[2];
 var counts = {};
+var usersSoFar = {};
 
 /*
   what will be handling the actual input. Is lineReader
@@ -22,14 +23,19 @@ lineReader.on('line', function (data) {
   data = data.split(',');
   //checks to make sure it at least has two entries, otherwise ignores
   if(data[0] && data[1]){
-    //I use the age as a key in a json object
-    if(counts[data[1]])
+    if(!usersSoFar[data[0]])
     {
-      counts[data[1]]++;
+      //I use the age as a key in a json object
+      if(counts[data[1]])
+      {
+        counts[data[1]]++;
+      }
+      else {
+        counts[data[1]] = 1;
+      }
+      usersSoFar[data[0]] = true;
     }
-    else {
-      counts[data[1]] = 1;
-    }
+
   }
 });
 
