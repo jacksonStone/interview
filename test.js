@@ -23,6 +23,7 @@ lineReader.on('line', function (data) {
   data = data.split(',');
   //checks to make sure it at least has two entries, otherwise ignores
   if(data[0] && data[1]){
+    //I store user IDs in a hash so that way I get constant lookup time
     if(!usersSoFar[data[0]])
     {
       //I use the age as a key in a json object
